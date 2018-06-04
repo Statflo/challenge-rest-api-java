@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 /**
  * @TODO: Fix me
@@ -23,7 +22,7 @@ public class V1ControllerUnitTest {
 
     @Test
     public void testShouldRetrieveUserByGivenId() {
-        final String response = this.userController.fetch("977e3f5b-6a70-4862-9ff8-96af4477272a");
+        final String response = this.userController.fetch("977e3f5b-6a70-4862-9ff8-96af4477272b");
 
         assertEquals(this.getUserStub(), response);
     }
