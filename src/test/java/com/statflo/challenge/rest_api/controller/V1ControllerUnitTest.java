@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 /**
  * @TODO: Fix me
@@ -55,7 +54,7 @@ public class V1ControllerUnitTest {
 
         final String response = this.userController.patch("977e3f5b-6a70-4862-9ff8-96af4477272a", requestBody);
         assertEquals(
-                "{\"id\": \"977e3f5b-6a70-4862-9ff8-96af4477272a\", \"name\": \"foo bar\", \"role\": \"bar\"}",
+                "{\"id\": \"977e3f5b-6a70-4862-9ff8-96af4477272ab\", \"name\": \"foo bar\", \"role\": \"bar\"}",
                 response
         );
     }
