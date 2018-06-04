@@ -22,7 +22,7 @@ public class V1ControllerUnitTest {
 
     @Test
     public void testShouldRetrieveUserByGivenId() {
-        final String response = this.userController.fetch("977e3f5b-6a70-4862-9ff8-96af4477272b");
+        final String response = this.userController.fetch("977e3f5b-6a70-4862-9ff8-96af4477272a");
 
         assertEquals(this.getUserStub(), response);
     }
@@ -54,7 +54,7 @@ public class V1ControllerUnitTest {
 
         final String response = this.userController.patch("977e3f5b-6a70-4862-9ff8-96af4477272a", requestBody);
         assertEquals(
-                "{\"id\": \"977e3f5b-6a70-4862-9ff8-96af4477272a\", \"name\": \"foo bar\", \"role\": \"bar\"}",
+                "{\"id\": \"977e3f5b-6a70-4862-9ff8-96af4477272ab\", \"name\": \"foo bar\", \"role\": \"bar\"}",
                 response
         );
     }
