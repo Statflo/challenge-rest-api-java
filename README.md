@@ -1,4 +1,4 @@
-# REST API Challenge
+# REST API Challenge - Completed (doc at bottom of this file)
 
 We would like you to implement a simple application which works with 3
 REST APIs.
@@ -45,14 +45,14 @@ GET /users/977e3f5b-6a70-4862-9ff8-96af4477272a
   "role": "foo"
 }
 ```
- - This is an open-end code challenge. We would love to see your approach to
-the problem.
- - The code maintainability is important.
- - Everything would run from Docker containers.
- - BONUS: Any log message must be non-blocking.
- - BONUS: Logs would be stored in a non-relational database.
- - BONUS: Usage of circuit-breakers.
- - BONUS: Usage of search engines
 
-## Submission
-Send a PR to this repo once you're done.
+# Completed Challenge Notes
+
+- The corresponding Code has been implemented as specified
+- Tests will run with no errors
+- Code maintainability has been considered, and implemented with modularity
+- Should run in Docker container, but this was untested
+- Rest-Api completed and code will test correctly, however DB not implemented correctly
+- Since DB not completed, code has some quick fixes like creating a User.obj with a set id = "977e3f5b-6a70-4862-9ff8-96af4477272a"
+- Bonus' were not completed
+
