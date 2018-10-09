@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    container_name: sucessso
+    restart: always
+    build: .
+    depends_on:
+      - mongo
+    ports:
+      - "8081:80"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    restart: always
+    image: mongo
+    ports:
+      - "27017:27017"
+    
