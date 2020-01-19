@@ -1,16 +1,18 @@
 package com.statflo.challenge.rest_api.controller;
 
 import com.statflo.challenge.rest_api.domains.User;
+import com.statflo.challenge.rest_api.domains.UserRequest;
 import com.statflo.challenge.rest_api.service_interfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH})
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH, RequestMethod.DELETE})
 @RequestMapping("/v1/users")
 public class V1Controller {
 
@@ -21,47 +23,65 @@ public class V1Controller {
         this.userService = userService;
     }
 
-    /**
-     * @TODO: Fix me
-     */
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> fetch(@PathVariable("id") String id) {
 
         User user = userService.getUserByID(id);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
 
-//        return "{\"id\": \"977e3f5b-6a70-4862-9ff8-96af4477272a\", \"name\": \"foo\", \"role\": \"bar\"}";
     }
 
-    /**
-     * @TODO: Fix me
-     */
     @GetMapping()
-    public String find(@RequestParam Map<String, Object> criteria) {
-        return "[{\"id\": \"977e3f5b-6a70-4862-9ff8-96af4477272a\", \"name\": \"foo\", \"role\": \"bar\"}]";
+    public ResponseEntity<List<User>> find(@RequestParam Map<String, String> criteria) {
+
+        List<User> listOfUsers = userService.findUsers(criteria);
+        return new ResponseEntity<>(listOfUsers, HttpStatus.OK);
     }
 
-    /**
-     * @TODO: Fix me
-     */
-    @PostMapping()
-    public ResponseEntity<String> create(@RequestBody User user) {
 
-        if (userService.getUserByID(user.getId()) != null){
-            return new ResponseEntity<>("Error: User already exists.", HttpStatus.CONFLICT);
+    @PostMapping()
+    public ResponseEntity<?> create(@RequestBody UserRequest userRequest) {
+
+            User newUser = userService.createUser(userRequest);
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<?> patch(@PathVariable("id") String id, @RequestBody Map<String, String> changes) {
+
+        User user = userService.getUserByID(id);
+
+        if (changes.containsKey("id")){
+            return new ResponseEntity<>("Can't update id property.", HttpStatus.CONFLICT);
+        }
+        else if (user == null){
+                return new ResponseEntity<>("User doesn't exist.", HttpStatus.CONFLICT);
         }
         else {
-            User newUser = userService.createUser(user);
-            return new ResponseEntity<>("User has been successfully added.", HttpStatus.CREATED);
+            User changed_user = userService.updateUser(id, changes);
+            return new ResponseEntity<>(changed_user, HttpStatus.OK);
         }
-//        return "{\"id\": \"977e3f5b-6a70-4862-9ff8-96af4477272a\", \"name\": \"foo\", \"role\": \"bar\"}";
     }
 
-    /**
-     * @TODO: Fix me
-     */
-    @PatchMapping(value = "/{id}")
-    public String patch(@PathVariable("id") String id, String body) {
-        return "{\"id\": \"977e3f5b-6a70-4862-9ff8-96af4477272a\", \"name\": \"foo bar\", \"role\": \"bar\"}";
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") String id){
+
+        User user = userService.getUserByID(id);
+
+        if (user == null){
+            return new ResponseEntity<>("User does not exist.", HttpStatus.NOT_FOUND);
+        }
+
+        int deleteResult = userService.deleteUser(id);
+
+        if (deleteResult > 0){
+            return new ResponseEntity<>("User successfully deleted.", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("User was not deleted.", HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -2,13 +2,9 @@ package com.statflo.challenge.rest_api.domains;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name="users")
-public class User {
 
-    @Id
-    @Column(name = "id", updatable = false , nullable = false)
-    private String id;
+public class UserRequest {
+
 
     @Column(name = "user")
     private String name;
@@ -16,18 +12,14 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    public User(){
+    public UserRequest(){
     }
 
-    public User(String name, String role){
+    public UserRequest(String name, String role){
         this.name = name;
         this.role = role;
     }
 
-
-    public String getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -47,10 +39,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id= " + id + ", name= " + name + ", role= " + role + "]";
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        return "User [name= " + name + ", role= " + role + "]";
     }
 }
