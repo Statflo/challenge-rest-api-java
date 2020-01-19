@@ -24,6 +24,12 @@ public class V1Controller {
     }
 
 
+    /**
+     * This endpoint retrieves user given an unique user id.
+     * @param id
+     * @return
+     * Returns a response entity with the user retrieved, and the the status of the call.
+     */
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> fetch(@PathVariable("id") String id) {
 
@@ -32,6 +38,12 @@ public class V1Controller {
 
     }
 
+    /**
+     * This endpoint retrieves users by specific parameter criteria. Only one criteria can be passed at a time.
+     * @param criteria
+     * @return
+     * Returns all users after filtering by given criteria. The criteria's that can be used are "role" and "name".
+     */
     @GetMapping()
     public ResponseEntity<List<User>> find(@RequestParam Map<String, String> criteria) {
 
@@ -40,6 +52,13 @@ public class V1Controller {
     }
 
 
+    /**
+     * POST call to create a new user.
+     * @param userRequest
+     * @return
+     * Returns the new user created given a request body with the role, and name. The id is randomly generated within
+     * the service.
+     */
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody UserRequest userRequest) {
 
@@ -48,6 +67,14 @@ public class V1Controller {
     }
 
 
+    /**
+     * Patch call to update user info.
+     * @param id
+     * @param changes - map of the new role, and name information. Can either change both, or one of them.
+     * @return
+     * Updates user role, and/or name information, given the user id. Role and name is passed in through the body.
+     * Returns new user information.
+     */
     @PatchMapping(value = "/{id}")
     public ResponseEntity<?> patch(@PathVariable("id") String id, @RequestBody Map<String, String> changes) {
 
@@ -66,6 +93,12 @@ public class V1Controller {
     }
 
 
+    /**
+     * Deletes a user given specific user id.
+     * @param id
+     * @return
+     * Returns a response message indicating that the user has been deleted.
+     */
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") String id){
 

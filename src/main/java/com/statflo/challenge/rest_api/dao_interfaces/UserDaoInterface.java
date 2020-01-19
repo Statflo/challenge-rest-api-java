@@ -5,6 +5,9 @@ import com.statflo.challenge.rest_api.domains.UserRequest;
 
 import java.util.*;
 
+/**
+ * Interface for all the methods that interact with the local database.
+ */
 public interface UserDaoInterface {
 
     User getUserByID(String id);

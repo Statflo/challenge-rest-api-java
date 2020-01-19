@@ -6,6 +6,9 @@ import com.statflo.challenge.rest_api.domains.UserRequest;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service interface which has all the methods that interacts with controller.
+ */
 public interface UserServiceInterface {
 
     User getUserByID(String id);
